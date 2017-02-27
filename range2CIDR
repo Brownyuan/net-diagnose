@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# The bash script convert the CIDR from a ip range
+# Example:
+# ./range2CIDR '192.168.2.0-192.168.2.34'
+
+NET=$(ipcalc -rn $1 | tail -n +2)
+echo $NET

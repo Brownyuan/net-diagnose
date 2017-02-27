@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# This bash script query the ip of domain from 114.114.114.114 and world clear DNS.
+# We can tell wether the DNS is polluted From the result. 
+
+ChinaDNS=114.114.114.114
+WorldIP=$(dig $1 +noall +answer +short)
+ChinaIP=$(dig $1 @$ChinaDNS +noall +answer +short)
+
+printResult() {
+  WHO=$1
+  WHAT=$2
+  printf "%0.s=" {1..10}
+  printf "\n"
+  echo "$WHO says: "
+  echo " $WHAT"
+}
+
+printResult "World" "$WorldIP"
+printResult "$ChinaDNS" "$ChinaIP"

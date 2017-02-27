@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# The bash script fetchs `whois` info of a domain.
+# Example:
+# ./whoiam www.google.com
+# ./whoiam www.google.com 114.114.114.114
+
+IP_REG='^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$'
+if [[ -z $2 ]]; then
+  IPS=$(dig $1 +noall +answer +short) 
+else
+  IPS=$(dig @$2 $1 +noall +answer +short) 
+fi
+ 
+for ip in $IPS; do
+  if [[ $ip =~ $IP_REG ]]; then
+    echo "$1 has IP $ip"
+    INFO=$(whois $ip)
+    echo "$INFO"
+  fi
+done
