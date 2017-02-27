@@ -1,7 +1,7 @@
 ## Usage
-* Use './seekDNS DOMAINNAME' to get the ip from the China DNS and World DNS.
-* Use './whoiam DOMAINNAME' to fetch information of DOMAINAME.
-* Use './isWhite IP' to assure whether it is in the white list.
+* Use `./seekDNS DOMAINNAME` to get the ip from the China DNS and World DNS.
+* Use `./whoiam DOMAINNAME` to fetch information of DOMAINAME.
+* Use `./isWhite IP` to assure whether it is in the white list.
 ## Example
 We would like to find out whether `www.github.com` is in the subsets defined in `./cn.ipset`.
 * Have a look at the DNS results from the world and China by './seekDNS www.github.com'
