@@ -6,16 +6,22 @@ The script validate whether the ip address is in the subsets defined in a file o
 
 from netaddr import IPNetwork
 import sys
+import argparse
 
-ip = sys.argv[1]
 
 
 def isInSubset(ip, subnet):
+    """
+        Validate whether ip is in subset
+    """
     ipInfo = IPNetwork(subnet)
     return ip in ipInfo
 
 
 def isWhite(ip, filename='./cn.ipset'):
+    """
+        Validate whether ip is in the subsets defined in filename
+    """
     f = open(filename)
     for net in f:
         if isInSubset(ip, net):
@@ -26,4 +32,15 @@ def isWhite(ip, filename='./cn.ipset'):
     return False
 
 
-isWhite(ip)
+if __name__ == "__main__":
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('ip', help='ip address to be tested')
+    parser.add_argument('--filename', help="file name to be tested against")
+
+    args = parser.parse_args(sys.argv[1:])
+
+    default_filename = './cn.ipset'
+    filename = args.filename or default_filename
+
+    isWhite(args.ip, filename)
