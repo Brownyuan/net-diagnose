@@ -16,7 +16,7 @@ printResult() {
 }
 
 
-# program usage
+# print program usage
 usage() {
     echo "Usgae: ./seekDNS [Domain Name]"
 }
