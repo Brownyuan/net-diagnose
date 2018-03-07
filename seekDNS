@@ -3,10 +3,9 @@
 # This bash script query the ip of domain from 114.114.114.114 and world clear DNS.
 # We can tell wether the DNS is polluted From the result. 
 
-ChinaDNS=114.114.114.114
-WorldIP=$(dig $1 +noall +answer +short)
-ChinaIP=$(dig $1 @$ChinaDNS +noall +answer +short)
 
+
+# print the seek result
 printResult() {
   WHO=$1
   WHAT=$2
@@ -16,5 +15,32 @@ printResult() {
   echo " $WHAT"
 }
 
-printResult "World" "$WorldIP"
-printResult "$ChinaDNS" "$ChinaIP"
+
+# program usage
+usage() {
+    echo "Usgae: ./seekDNS [Domain Name]"
+}
+
+
+# retrieve ip of input domain from world and chinese dns
+seek() {
+    DOMAIN=$1
+    ChinaDNS=114.114.114.114
+    WorldIP=$(dig $DOMAIN +noall +answer +short)
+    ChinaIP=$(dig $DOMAIN @$ChinaDNS +noall +answer +short)
+
+    printResult "World" "$WorldIP"
+    printResult "$ChinaDNS" "$ChinaIP"
+}
+
+
+# begin: program entry
+if [ "$#" -ne 1 ]; then
+    echo "Error: Illegal number of parameters"
+    usage
+    exit 1
+fi
+
+seek $1
+# end: program entry 
+
